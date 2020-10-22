@@ -5,17 +5,22 @@
  */
 package UserInterface;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author zhaoxi
  */
 public class CustomerLoginJPanel extends javax.swing.JPanel {
-
+    
+    private JPanel rightJPanel;
     /**
      * Creates new form CustomerLoginJPanel
      */
-    public CustomerLoginJPanel() {
+    public CustomerLoginJPanel(JPanel rightJPanel) {
         initComponents();
+        this.rightJPanel = rightJPanel;
     }
 
     /**
@@ -31,28 +36,29 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtTitle = new javax.swing.JLabel();
         txtPword = new javax.swing.JTextField();
-        btnSubmit = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         txtPword1 = new javax.swing.JTextField();
-        btnSubmit1 = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
 
         jLabel1.setText("Username");
 
         jLabel2.setText("Password");
 
+        txtTitle.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         txtTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTitle.setText("Customer Login Screen");
 
-        btnSubmit.setText("Login");
-        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
-        btnSubmit1.setText("Create");
-        btnSubmit1.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmit1ActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
 
@@ -63,22 +69,23 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(btnSubmit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSubmit1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(130, 130, 130)
                         .addComponent(txtTitle))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPword)
-                            .addComponent(txtPword1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(117, 117, 117)
+                            .addComponent(btnLogin)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCreate))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(101, 101, 101)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtPword)
+                                .addComponent(txtPword1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
@@ -96,24 +103,30 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubmit)
-                    .addComponent(btnSubmit1))
+                    .addComponent(btnLogin)
+                    .addComponent(btnCreate))
                 .addGap(47, 47, 47))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.add(new CustomerWorkAreaJPanel(rightJPanel));
+        layout.next(rightJPanel);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
-    }//GEN-LAST:event_btnSubmitActionPerformed
-
-    private void btnSubmit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmit1ActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSubmit1ActionPerformed
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.add(new CustomerCreateAccountJPanel(rightJPanel));
+        layout.next(rightJPanel);
+        
+    }//GEN-LAST:event_btnCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSubmit;
-    private javax.swing.JButton btnSubmit1;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtPword;

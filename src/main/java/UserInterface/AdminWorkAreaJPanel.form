@@ -66,21 +66,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Flight Schedule Manager&gt;&gt;&gt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFlightscheduleMgrActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAirlinerMgr">
       <Properties>
         <Property name="text" type="java.lang.String" value="Airliner Manager&gt;&gt;&gt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAirlinerMgrActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnOrderMgr">
       <Properties>
         <Property name="text" type="java.lang.String" value="Order Manager&gt;&gt;&gt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderMgrActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAccountMgr">
       <Properties>
         <Property name="text" type="java.lang.String" value="Account Manager&gt;&gt;&gt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAccountMgrActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

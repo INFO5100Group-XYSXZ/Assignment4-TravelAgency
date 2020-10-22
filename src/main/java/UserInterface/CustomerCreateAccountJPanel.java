@@ -5,17 +5,21 @@
  */
 package UserInterface;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author zhaoxi
  */
 public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
-
+    private JPanel rightJPanel;
     /**
      * Creates new form CustomerCreateAccountJPanel
      */
-    public CustomerCreateAccountJPanel() {
+    public CustomerCreateAccountJPanel(JPanel rightJPanel) {
         initComponents();
+        this.rightJPanel = rightJPanel;
     }
 
     /**
@@ -109,7 +113,9 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.remove(this);
+        layout.previous(rightJPanel);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

@@ -5,10 +5,32 @@
  */
 package Business.Flight;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author zhaoxi
  */
 public class AirlinerDirectory {
     
+    private List<Airliner> alinerDirectory;
+    
+    public AirlinerDirectory(){
+        alinerDirectory = new ArrayList<Airliner>();
+    }
+
+    public List<Airliner> getAirlinerDirectory() {
+        return alinerDirectory;
+    }
+    
+    public Airliner addAirliner(){
+        Airliner a = new Airliner();
+        alinerDirectory.add(a);
+        return a;
+    }
+    
+    public void removeAirliner(Airliner a){
+        alinerDirectory.remove(a);
+    }
 }

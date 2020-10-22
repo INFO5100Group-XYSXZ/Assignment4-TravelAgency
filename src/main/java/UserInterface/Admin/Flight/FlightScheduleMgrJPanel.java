@@ -5,17 +5,23 @@
  */
 package UserInterface.Admin.Flight;
 
+import UserInterface.Admin.Airliner.AddAirlinerJPanel;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author zhaoxi
  */
 public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
-
+    
+    private JPanel rightJPanel;
     /**
      * Creates new form FlightManagementJPanel
      */
-    public FlightScheduleMgrJPanel() {
+    public FlightScheduleMgrJPanel(JPanel rightJPanel) {
         initComponents();
+        this.rightJPanel = rightJPanel;
     }
 
     /**
@@ -33,6 +39,7 @@ public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
         btnUpdateFlight = new javax.swing.JButton();
         btnCancelFlight = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
 
         flightscheduleTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,6 +87,11 @@ public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
         }
 
         btnAddFlight.setText("Add");
+        btnAddFlight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFlightActionPerformed(evt);
+            }
+        });
 
         btnUpdateFlight.setText("Update");
         btnUpdateFlight.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +103,14 @@ public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
         btnCancelFlight.setText("Cancel");
 
         btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel17.setText("Flight Schedule List");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -100,24 +120,33 @@ public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAddFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdateFlight)
-                        .addGap(547, 547, 547)
-                        .addComponent(btnCancelFlight))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addComponent(btnBack)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnUpdateFlight)
+                                .addGap(547, 547, 547)
+                                .addComponent(btnCancelFlight))
+                            .addComponent(btnBack))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addGap(283, 283, 283))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(15, 15, 15)
                 .addComponent(btnBack)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel17)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddFlight)
                     .addComponent(btnUpdateFlight)
@@ -128,7 +157,24 @@ public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
 
     private void btnUpdateFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateFlightActionPerformed
         // TODO add your handling code here:
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.add(new UpdateFlightJPanel(rightJPanel));
+        layout.next(rightJPanel);
     }//GEN-LAST:event_btnUpdateFlightActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.remove(this);
+        layout.previous(rightJPanel);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFlightActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.add(new AddFlightJPanel(rightJPanel));
+        layout.next(rightJPanel);
+    }//GEN-LAST:event_btnAddFlightActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -137,6 +183,7 @@ public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCancelFlight;
     private javax.swing.JButton btnUpdateFlight;
     private javax.swing.JTable flightscheduleTable;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

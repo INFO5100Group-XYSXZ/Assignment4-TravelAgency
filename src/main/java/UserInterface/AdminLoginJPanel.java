@@ -5,17 +5,23 @@
  */
 package UserInterface;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author zhaoxi
  */
 public class AdminLoginJPanel extends javax.swing.JPanel {
 
+    private JPanel rightJPanel;
     /**
      * Creates new form AdminLoginJPanel
      */
-    public AdminLoginJPanel() {
+    public AdminLoginJPanel(JPanel rightJPanel) {
+        this.rightJPanel = rightJPanel;
         initComponents();
+        
     }
 
     /**
@@ -34,6 +40,7 @@ public class AdminLoginJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
+        txtTitle.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         txtTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTitle.setText("Admin Login Screen");
 
@@ -68,7 +75,7 @@ public class AdminLoginJPanel extends javax.swing.JPanel {
                         .addGap(129, 129, 129)
                         .addComponent(txtTitle))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
+                        .addGap(157, 157, 157)
                         .addComponent(btnSubmit)))
                 .addGap(146, 146, 146))
         );
@@ -92,7 +99,9 @@ public class AdminLoginJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.add(new AdminWorkAreaJPanel(rightJPanel));
+        layout.next(rightJPanel);
     }//GEN-LAST:event_btnSubmitActionPerformed
 
 

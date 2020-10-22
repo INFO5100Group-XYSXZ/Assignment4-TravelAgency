@@ -5,16 +5,27 @@
  */
 package UserInterface;
 
+import Business.Flight.AirlinerDirectory;
+import UserInterface.Admin.Account.AccountMgrJPanel;
+import UserInterface.Admin.Airliner.AirlinerMgrJPanel;
+import UserInterface.Admin.Flight.FlightScheduleMgrJPanel;
+import UserInterface.Admin.Order.OrderMgrJPanel;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author zhaoxi
  */
 public class AdminWorkAreaJPanel extends javax.swing.JPanel {
-
+    private JPanel rightJPanel;
+    private AirlinerDirectory airlinerDir;
     /**
      * Creates new form AdminWorkAreaJPanel
      */
-    public AdminWorkAreaJPanel() {
+    public AdminWorkAreaJPanel(JPanel rightJPanel) {
+        this.rightJPanel = rightJPanel;
+        airlinerDir = new AirlinerDirectory();
         initComponents();
     }
 
@@ -37,12 +48,32 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1.setText("Admin Work Area");
 
         btnFlightscheduleMgr.setText("Flight Schedule Manager>>>");
+        btnFlightscheduleMgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFlightscheduleMgrActionPerformed(evt);
+            }
+        });
 
         btnAirlinerMgr.setText("Airliner Manager>>>");
+        btnAirlinerMgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAirlinerMgrActionPerformed(evt);
+            }
+        });
 
         btnOrderMgr.setText("Order Manager>>>");
+        btnOrderMgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderMgrActionPerformed(evt);
+            }
+        });
 
         btnAccountMgr.setText("Account Manager>>>");
+        btnAccountMgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccountMgrActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -78,6 +109,35 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(76, 76, 76))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAccountMgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountMgrActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.add(new AccountMgrJPanel(rightJPanel));
+        layout.next(rightJPanel);
+    }//GEN-LAST:event_btnAccountMgrActionPerformed
+
+    private void btnFlightscheduleMgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlightscheduleMgrActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.add(new FlightScheduleMgrJPanel(rightJPanel));
+        layout.next(rightJPanel);
+    }//GEN-LAST:event_btnFlightscheduleMgrActionPerformed
+
+    private void btnAirlinerMgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAirlinerMgrActionPerformed
+        // TODO add your handling code here:
+        AirlinerMgrJPanel alm = new AirlinerMgrJPanel(rightJPanel,airlinerDir);
+        rightJPanel.add("AirlinerMgr",alm);
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        layout.next(rightJPanel);
+    }//GEN-LAST:event_btnAirlinerMgrActionPerformed
+
+    private void btnOrderMgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderMgrActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
+        rightJPanel.add(new OrderMgrJPanel(rightJPanel));
+        layout.next(rightJPanel);
+    }//GEN-LAST:event_btnOrderMgrActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
