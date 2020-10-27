@@ -5,6 +5,9 @@
  */
 package Business.User;
 
+import Business.Order.Order;
+import Business.Order.OrderList;
+
 /**
  *
  * @author zhaoxi
@@ -12,6 +15,13 @@ package Business.User;
 public class Account {
     private String userName;
     private String passWord;
+    private PassengerDirectory passengerDir;
+    private OrderList orderList;
+
+    public Account() {
+        passengerDir = new PassengerDirectory();
+        orderList = new OrderList();
+    }
 
     public String getUserName() {
         return userName;
@@ -27,6 +37,34 @@ public class Account {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+    }
+
+    public PassengerDirectory getPassengerDir() {
+        return passengerDir;
+    }
+
+    public void setPassengerDir(PassengerDirectory passengerDir) {
+        this.passengerDir = passengerDir;
+    }
+
+    public OrderList getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(OrderList orderList) {
+        this.orderList = orderList;
+    }
+    
+    public Passenger addPassenger(){
+        Passenger p = new Passenger();
+        passengerDir.getPassengerDir().add(p);
+        return p;
+    }
+    
+    public Order addOrder(){
+        Order o = new Order();
+        orderList.getOrderList().add(o);
+        return o;
     }
     
     @Override

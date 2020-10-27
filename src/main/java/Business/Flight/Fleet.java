@@ -30,4 +30,10 @@ public class Fleet {
         return a;
     }
     
+    public Airplane addAirplane(String model){
+        Airplane a = new Airplane(model);
+        fleet.add(a);
+        return a;
+    }
+    
 }

@@ -5,7 +5,10 @@
  */
 package UserInterface;
 
+import Business.User.Account;
+import Business.User.Admin;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -14,12 +17,15 @@ import javax.swing.JPanel;
  */
 public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
     private JPanel rightJPanel;
+    private Admin admin;
+    
     /**
      * Creates new form CustomerCreateAccountJPanel
      */
-    public CustomerCreateAccountJPanel(JPanel rightJPanel) {
+    public CustomerCreateAccountJPanel(JPanel rightJPanel,Admin admin) {
         initComponents();
         this.rightJPanel = rightJPanel;
+        this.admin = admin;
     }
 
     /**
@@ -104,12 +110,23 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addGap(39, 39, 39)
                 .addComponent(btnCreate)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-      
+        String userName = txtUser.getText();
+        String pw   = txtPword.getText();
+        String rpw = txtRePword.getText();
+        
+        Account account = admin.getAccountDir().addAccount();
+        account.setUserName(userName);
+        account.setPassWord(pw);
+        JOptionPane.showMessageDialog(null,"Account created successfully!");
+        
+        txtUser.setText("");
+        txtPword.setText("");
+        txtRePword.setText("");
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

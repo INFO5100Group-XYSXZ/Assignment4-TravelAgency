@@ -12,6 +12,8 @@ import Business.Flight.Fleet;
 import Business.Flight.FlightScheduleCatalog;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -31,6 +33,47 @@ public class AddAirlinerJPanel extends javax.swing.JPanel {
         initComponents();
         this.rightJPanel = rightJPanel;
         this.airlinerDir = airlinerDir;
+    }
+    
+    private boolean inputStringCorrect(String s){
+        Pattern p = Pattern.compile("^[a-zA-Z0-9]+$");
+        Matcher m = p.matcher(s);
+        boolean input = m.matches();
+        return input;
+    }
+    
+    public boolean inputFieldValid(){
+        boolean inputFieldValid = true;
+        
+        if (txtAirliner.getText().equals("") || !inputStringCorrect(txtAirliner.getText())) {
+            inputFieldValid = false;
+        }
+        
+        return inputFieldValid;
+    }
+    
+    public boolean airplaneSelected(){
+        boolean airplaneSelected = false;
+        
+        if (btnBoeingB747.isSelected()) {
+            airplaneSelected = true;
+        }
+        if (btnBoeingB767.isSelected()) {
+            airplaneSelected = true;
+        }
+        if (btnBoeingB737.isSelected()) {
+             airplaneSelected = true;
+        }
+        if (btnAirbusA380.isSelected()) {
+             airplaneSelected = true;
+        }
+        if (btnAirbusA330.isSelected()) {
+           airplaneSelected = true;
+        }
+        if (btnAirbusA319.isSelected()) {
+            airplaneSelected = true;
+        }
+        return airplaneSelected;
     }
 
     /**
@@ -172,52 +215,60 @@ public class AddAirlinerJPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         String arilinerName = txtAirliner.getText();
-        Fleet fleet = new Fleet();
-        if (btnBoeingB747.isSelected()) {
-            Airplane airplane = fleet.addAirplane();
-            airplane.setModel(btnBoeingB747.getText());
-            airplane.setCapacity(150);
+        if (!inputFieldValid()) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid airliner name!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-        if (btnBoeingB767.isSelected()) {
-            Airplane airplane = fleet.addAirplane();
-            airplane.setModel(btnBoeingB767.getText());
-            airplane.setCapacity(150);
+        else{
+            if (airplaneSelected()) {
+                Fleet fleet = new Fleet();
+                if (btnBoeingB747.isSelected()) {
+                    Airplane airplane = fleet.addAirplane();
+                    airplane.setModel(btnBoeingB747.getText());
+                    airplane.setCapacity(150);
+                }
+                if (btnBoeingB767.isSelected()) {
+                    Airplane airplane = fleet.addAirplane();
+                    airplane.setModel(btnBoeingB767.getText());
+                    airplane.setCapacity(150);
+                }
+                if (btnBoeingB737.isSelected()) {
+                    Airplane airplane = fleet.addAirplane();
+                    airplane.setModel(btnBoeingB737.getText());
+                    airplane.setCapacity(150);
+                }
+                if (btnAirbusA380.isSelected()) {
+                    Airplane airplane = fleet.addAirplane();
+                    airplane.setModel(btnAirbusA380.getText());
+                    airplane.setCapacity(150);
+                }
+                if (btnAirbusA330.isSelected()) {
+                    Airplane airplane = fleet.addAirplane();
+                    airplane.setModel(btnAirbusA330.getText());
+                    airplane.setCapacity(150);
+                }
+                if (btnAirbusA319.isSelected()) {
+                    Airplane airplane = fleet.addAirplane();
+                    airplane.setModel(btnAirbusA319.getText());
+                    airplane.setCapacity(150);
+                }
+
+                Airliner airliner = airlinerDir.addAirliner();
+                airliner.setAirlinerName(arilinerName);
+                airliner.setFleet(fleet);
+                airliner.setFlightScheduleCatalog(new FlightScheduleCatalog());
+
+                JOptionPane.showMessageDialog(null, "Airliner successfully added!");
+
+                txtAirliner.setText("");
+                btnBoeingB747.setSelected(false);
+                btnBoeingB767.setSelected(false);
+                btnBoeingB737.setSelected(false);
+                btnAirbusA380.setSelected(false);
+                btnAirbusA330.setSelected(false);
+                btnAirbusA319.setSelected(false);
+            }
+            else JOptionPane.showMessageDialog(null, "Please select at least one airplane!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-        if (btnBoeingB737.isSelected()) {
-            Airplane airplane = fleet.addAirplane();
-            airplane.setModel(btnBoeingB737.getText());
-            airplane.setCapacity(150);
-        }
-        if (btnAirbusA380.isSelected()) {
-            Airplane airplane = fleet.addAirplane();
-            airplane.setModel(btnAirbusA380.getText());
-            airplane.setCapacity(150);
-        }
-        if (btnAirbusA330.isSelected()) {
-            Airplane airplane = fleet.addAirplane();
-            airplane.setModel(btnAirbusA330.getText());
-            airplane.setCapacity(150);
-        }
-        if (btnAirbusA319.isSelected()) {
-            Airplane airplane = fleet.addAirplane();
-            airplane.setModel(btnAirbusA319.getText());
-            airplane.setCapacity(150);
-        }
-        
-        Airliner airliner = airlinerDir.addAirliner();
-        airliner.setAirlinerName(arilinerName);
-        airliner.setFleet(fleet);
-        airliner.setFlightScheduleCatalog(new FlightScheduleCatalog());
-        
-        JOptionPane.showMessageDialog(null, "Airliner successfully added!");
-        
-        txtAirliner.setText("");
-        btnBoeingB747.setSelected(false);
-        btnBoeingB767.setSelected(false);
-        btnBoeingB737.setSelected(false);
-        btnAirbusA380.setSelected(false);
-        btnAirbusA330.setSelected(false);
-        btnAirbusA380.setSelected(false);
     }//GEN-LAST:event_btnAddActionPerformed
 
 

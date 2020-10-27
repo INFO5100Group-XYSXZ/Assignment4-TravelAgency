@@ -13,6 +13,13 @@ public class Airplane {
     private String model;
     private int capacity;
     
+    public Airplane() {     
+    }
+    
+    public Airplane(String model) {  
+        this.model = model;
+    }    
+    
     public String getModel() {
         return model;
     }

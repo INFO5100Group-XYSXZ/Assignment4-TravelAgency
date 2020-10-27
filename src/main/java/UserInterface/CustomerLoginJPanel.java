@@ -5,7 +5,13 @@
  */
 package UserInterface;
 
+import Business.Flight.AirlinerDirectory;
+import Business.User.Account;
+import Business.User.AccountDirectory;
+import Business.User.Admin;
+import Business.User.PassengerDirectory;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -15,12 +21,19 @@ import javax.swing.JPanel;
 public class CustomerLoginJPanel extends javax.swing.JPanel {
     
     private JPanel rightJPanel;
+    private AirlinerDirectory airlinerDir; 
+    private Admin admin;
+    private AccountDirectory accountDir;
+    private Account account;
+    private PassengerDirectory passengerDir;
     /**
      * Creates new form CustomerLoginJPanel
      */
-    public CustomerLoginJPanel(JPanel rightJPanel) {
+    public CustomerLoginJPanel(JPanel rightJPanel,AirlinerDirectory airlinerDir,Admin admin) {
         initComponents();
         this.rightJPanel = rightJPanel;
+        this.airlinerDir = airlinerDir;
+        this.admin = admin;
     }
 
     /**
@@ -75,7 +88,7 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(117, 117, 117)
                             .addComponent(btnLogin)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(25, 25, 25)
                             .addComponent(btnCreate))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(101, 101, 101)
@@ -109,16 +122,33 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean verify(){
+        boolean search = false;
+        String pword = txtPword.getText();
+        for (Account a : admin.getAccountDir().getAccountDir()) {
+            if(pword.equals(a.getPassWord())){
+                search = true;
+                break;
+            }
+        }
+        return search;
+    }
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        if (!verify()) {
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new CustomerWorkAreaJPanel(rightJPanel));
+        CustomerWorkAreaJPanel cwajp = new CustomerWorkAreaJPanel(rightJPanel,airlinerDir,account);
+        rightJPanel.add("CustomerWorkAreaJPanel", cwajp);
         layout.next(rightJPanel);
+        }
+        else JOptionPane.showMessageDialog(null,"Wrong username or password!");
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new CustomerCreateAccountJPanel(rightJPanel));
+        rightJPanel.add(new CustomerCreateAccountJPanel(rightJPanel,admin));
         layout.next(rightJPanel);
         
     }//GEN-LAST:event_btnCreateActionPerformed

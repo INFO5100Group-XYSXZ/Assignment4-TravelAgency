@@ -18,6 +18,9 @@ public class AirlinerDirectory {
     
     public AirlinerDirectory(){
         alinerDirectory = new ArrayList<Airliner>();
+//        Airliner a = new Airliner("Delta");
+//        alinerDirectory.add(a);
+//        a.getFleet().addAirplane("BOEING-B747");
     }
 
     public List<Airliner> getAirlinerDirectory() {

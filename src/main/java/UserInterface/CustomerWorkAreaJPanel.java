@@ -5,6 +5,9 @@
  */
 package UserInterface;
 
+import Business.Flight.AirlinerDirectory;
+import Business.User.Account;
+import Business.User.PassengerDirectory;
 import UserInterface.Customer.BookFlightJPanel;
 import UserInterface.Customer.SearchFlightJPanel;
 import UserInterface.Customer.ViewOrderJPanel;
@@ -18,12 +21,16 @@ import javax.swing.JPanel;
 public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     
     private JPanel rightJPanel;
+    private AirlinerDirectory airlinerDir;
+    private Account account;
     /**
      * Creates new form CustomerWorkAreaJPanel
      */
-    public CustomerWorkAreaJPanel(JPanel rightJPanel) {
+    public CustomerWorkAreaJPanel(JPanel rightJPanel, AirlinerDirectory airlinerDir, Account account) {
         initComponents();
         this.rightJPanel = rightJPanel;
+        this.airlinerDir = airlinerDir;
+        this.account = account;
     }
 
     /**
@@ -99,14 +106,14 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void btnSearchFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchFlightActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new SearchFlightJPanel(rightJPanel));
+        rightJPanel.add(new SearchFlightJPanel(rightJPanel,account,airlinerDir));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnSearchFlightActionPerformed
 
     private void btnBookFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookFlightActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new BookFlightJPanel(rightJPanel));
+        rightJPanel.add(new BookFlightJPanel(rightJPanel,account,airlinerDir));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnBookFlightActionPerformed
 

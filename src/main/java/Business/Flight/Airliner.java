@@ -18,7 +18,7 @@ public class Airliner {
         fleet = new Fleet();
         flightScheduleCatalog = new FlightScheduleCatalog();
     }
-
+    
     public String getAirlinerName() {
         return airlinerName;
     }
@@ -43,7 +43,9 @@ public class Airliner {
         this.flightScheduleCatalog = flightScheduleCatalog;
     }
     
+    @Override
     public String toString() {
         return airlinerName;
     }
+    
 }

@@ -5,7 +5,9 @@
  */
 package UserInterface;
 
+import Business.Flight.Airliner;
 import Business.Flight.AirlinerDirectory;
+import Business.Flight.FlightScheduleCatalog;
 import UserInterface.Admin.Account.AccountMgrJPanel;
 import UserInterface.Admin.Airliner.AirlinerMgrJPanel;
 import UserInterface.Admin.Flight.FlightScheduleMgrJPanel;
@@ -20,12 +22,13 @@ import javax.swing.JPanel;
 public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel rightJPanel;
     private AirlinerDirectory airlinerDir;
+    private Airliner airliner;
     /**
      * Creates new form AdminWorkAreaJPanel
      */
-    public AdminWorkAreaJPanel(JPanel rightJPanel) {
+    public AdminWorkAreaJPanel(JPanel rightJPanel, AirlinerDirectory ad) {
         this.rightJPanel = rightJPanel;
-        airlinerDir = new AirlinerDirectory();
+        this.airlinerDir = ad;
         initComponents();
     }
 
@@ -98,13 +101,13 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jLabel1)
-                .addGap(53, 53, 53)
-                .addComponent(btnFlightscheduleMgr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(65, 65, 65)
                 .addComponent(btnAirlinerMgr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFlightscheduleMgr)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOrderMgr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAccountMgr)
                 .addGap(76, 76, 76))
         );
@@ -118,9 +121,10 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAccountMgrActionPerformed
 
     private void btnFlightscheduleMgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlightscheduleMgrActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:      
+        FlightScheduleMgrJPanel fsm = new FlightScheduleMgrJPanel(rightJPanel,airlinerDir, airliner);
+        rightJPanel.add("FlightScheduleMgrJPanel", fsm);
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new FlightScheduleMgrJPanel(rightJPanel));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnFlightscheduleMgrActionPerformed
 
