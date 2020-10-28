@@ -34,6 +34,14 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
         this.rightJPanel = rightJPanel;
         this.airlinerDir = airlinerDir;
         this.admin = admin;
+        
+        // for test
+        int s = admin.getAccountDir().getAccountDir().size();
+        System.out.println(s);
+        if (s > 0) {
+            for (Account a : admin.getAccountDir().getAccountDir())
+                System.out.println(a.getPassWord());
+        }
     }
 
     /**
@@ -48,9 +56,9 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtTitle = new javax.swing.JLabel();
-        txtPword = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        txtPword1 = new javax.swing.JTextField();
+        txtPword = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
 
         jLabel1.setText("Username");
@@ -97,8 +105,8 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel2))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtPword)
-                                .addComponent(txtPword1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtUser)
+                                .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
@@ -108,11 +116,11 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
                 .addComponent(txtTitle)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -128,6 +136,7 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
         for (Account a : admin.getAccountDir().getAccountDir()) {
             if(pword.equals(a.getPassWord())){
                 search = true;
+                account = a;
                 break;
             }
         }
@@ -135,7 +144,7 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
     }
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (!verify()) {
+        if (verify()) {
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
         CustomerWorkAreaJPanel cwajp = new CustomerWorkAreaJPanel(rightJPanel,airlinerDir,account);
         rightJPanel.add("CustomerWorkAreaJPanel", cwajp);
@@ -160,7 +169,7 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtPword;
-    private javax.swing.JTextField txtPword1;
     private javax.swing.JLabel txtTitle;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

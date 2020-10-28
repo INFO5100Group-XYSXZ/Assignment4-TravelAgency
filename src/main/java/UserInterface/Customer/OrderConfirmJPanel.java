@@ -5,14 +5,17 @@
  */
 package UserInterface.Customer;
 
+import Business.Flight.AirlinerDirectory;
 import Business.Flight.FlightSchedule;
 import Business.Flight.Seat;
 import Business.Order.Order;
 import Business.User.Account;
 import Business.User.Passenger;
-import Business.User.PassengerDirectory;
 import java.awt.CardLayout;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -27,7 +30,7 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
     private JPanel rightJPanel;
     private FlightSchedule selectedFlight;
     private Account account;
-    
+   
     
     /**
      * Creates new form OrderConfirmJPanel
@@ -63,7 +66,7 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
     private boolean inputNameCorrect(String s){
         Pattern p = Pattern.compile("^[a-zA-Z]+$");
         Matcher m = p.matcher(s);
-        boolean input = m.matches();
+        boolean input = m.matches();    // what is input? not s?
         return input;
     }
     
@@ -102,7 +105,7 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JButton();
         txtPrice = new javax.swing.JTextField();
-        btnCancel = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -143,10 +146,10 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
 
         txtPrice.setEnabled(false);
 
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -249,8 +252,8 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
                                             .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jLabel17)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnCancel)
-                                        .addGap(69, 69, 69)
+                                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(48, 48, 48)
                                         .addComponent(btnConfirm))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
@@ -377,17 +380,17 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm)
-                    .addComponent(btnCancel))
+                    .addComponent(btnBack))
                 .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
         rightJPanel.remove(this);
         layout.previous(rightJPanel);
-    }//GEN-LAST:event_btnCancelActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         
@@ -406,11 +409,16 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
             p.setId(id);
             p.setFs(selectedFlight);
             p.setSeat(seat);
-
-            Order order = account.addOrder();
+            //System.out.println(p.getLastName());   // for test
+            Order order = account.getOrderList().addOrder();
             order.setAccount(account);
             order.setPassenger(p);
             order.setFlight(selectedFlight);
+            
+            Date time = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+            String strDate = dateFormat.format(time);
+            order.setOrderDate(strDate);
 
             JOptionPane.showMessageDialog(null, "Flight Book for " + firstName + " " + lastName +  " Success!");
         
@@ -419,13 +427,14 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
             txtID.setEnabled(false);
             seatComboBox.setEnabled(false);
             
-            selectedFlight.getSeatList().removeSeat(seat);
+            int i = selectedFlight.getSeatList().getIndex(seat.getSeat());
+            selectedFlight.getSeatList().getSeatList().remove(i);
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

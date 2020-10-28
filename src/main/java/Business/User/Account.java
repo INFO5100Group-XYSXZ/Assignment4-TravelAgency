@@ -17,6 +17,8 @@ public class Account {
     private String passWord;
     private PassengerDirectory passengerDir;
     private OrderList orderList;
+    private String accountCreatDate;
+
 
     public Account() {
         passengerDir = new PassengerDirectory();
@@ -65,6 +67,14 @@ public class Account {
         Order o = new Order();
         orderList.getOrderList().add(o);
         return o;
+    }
+    
+    public String getAccountCreatDate() {
+        return accountCreatDate;
+    }
+
+    public void setAccountCreatDate(String accountCreatDate) {
+        this.accountCreatDate = accountCreatDate;
     }
     
     @Override

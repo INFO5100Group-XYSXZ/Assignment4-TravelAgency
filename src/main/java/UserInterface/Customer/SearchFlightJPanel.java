@@ -229,7 +229,7 @@ public class SearchFlightJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void populateTable(String from,String to,String departureDate) {
+    public void populateTable(String from,String to,String departureDate) {
         DefaultTableModel model = (DefaultTableModel)searchFlightTable.getModel();
         model.setRowCount(0);
         
@@ -245,7 +245,7 @@ public class SearchFlightJPanel extends javax.swing.JPanel {
                     row[4] = fs.getTo();
                     row[5] = fs.getDepartureDate();
                     row[6] = fs.getDepartureTime();
-                    row[7] = fs.getArrivalTime();
+                    row[7] = fs.getArrivalDate()+ " " + fs.getArrivalTime();
                     row[8] = fs.getSeatList().getSeatList().size();
                     row[9] = fs.getPrice();
                     

@@ -91,7 +91,7 @@ public class TravelAgencyMain extends javax.swing.JFrame {
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new AdminLoginJPanel(rightJPanel, airlinerDirectory));
+        rightJPanel.add(new AdminLoginJPanel(rightJPanel, airlinerDirectory, admin));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnAdminActionPerformed
 

@@ -18,8 +18,10 @@ public class Order {
     private Passenger passenger;
     private FlightSchedule flight;
     private int orderNumber;
-    
+    private String orderDate;
     private static int count;
+    
+    
     
     public Order(){
         count++;
@@ -64,6 +66,14 @@ public class Order {
 
     public static void setCount(int count) {
         Order.count = count;
+    }
+    
+        public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
     
     @Override

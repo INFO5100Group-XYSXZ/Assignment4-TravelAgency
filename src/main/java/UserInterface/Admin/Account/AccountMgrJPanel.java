@@ -5,8 +5,12 @@
  */
 package UserInterface.Admin.Account;
 
+import Business.User.Account;
+import Business.User.Admin;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,13 +19,30 @@ import javax.swing.JPanel;
 public class AccountMgrJPanel extends javax.swing.JPanel {
     
     private JPanel rightJPanel;
+    private Admin admin;
     
     /**
      * Creates new form AccountMgrJPanel
      */
-    public AccountMgrJPanel(JPanel rightJPanel) {
+    public AccountMgrJPanel(JPanel rightJPanel, Admin admin) {
         initComponents();
         this.rightJPanel = rightJPanel;
+        this.admin = admin;
+        
+        populateTable();
+    }
+    
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel)accountTable.getModel();
+        model.setRowCount(0);
+        for (Account account : admin.getAccountDir().getAccountDir()) {         
+            Object row[] = new Object[3];
+            row[0] = account.getUserName();
+            row[1] = account.getPassWord();
+            row[2] = account.getAccountCreatDate();
+            
+            model.addRow(row);
+        }
     }
 
     /**
@@ -35,17 +56,13 @@ public class AccountMgrJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         accountTable = new javax.swing.JTable();
-        btnAddAccount = new javax.swing.JButton();
         btnDeleteAccount = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
 
         accountTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Account Name", "Password", "Date Created"
@@ -62,18 +79,19 @@ public class AccountMgrJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(accountTable);
         if (accountTable.getColumnModel().getColumnCount() > 0) {
             accountTable.getColumnModel().getColumn(0).setResizable(false);
+            accountTable.getColumnModel().getColumn(0).setPreferredWidth(100);
             accountTable.getColumnModel().getColumn(1).setResizable(false);
+            accountTable.getColumnModel().getColumn(1).setPreferredWidth(70);
             accountTable.getColumnModel().getColumn(2).setResizable(false);
+            accountTable.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
-        btnAddAccount.setText("Add");
-        btnAddAccount.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteAccount.setText("Delete");
+        btnDeleteAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddAccountActionPerformed(evt);
+                btnDeleteAccountActionPerformed(evt);
             }
         });
-
-        btnDeleteAccount.setText("Delete");
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -89,24 +107,20 @@ public class AccountMgrJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBack))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(128, 128, 128)
-                                .addComponent(btnAddAccount)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDeleteAccount)))))
-                .addGap(79, 79, 79))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel17)
                 .addGap(154, 154, 154))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDeleteAccount)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnBack))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(77, 77, 77)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,9 +132,7 @@ public class AccountMgrJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddAccount)
-                    .addComponent(btnDeleteAccount))
+                .addComponent(btnDeleteAccount)
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -130,19 +142,26 @@ public class AccountMgrJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
         rightJPanel.remove(this);
         layout.previous(rightJPanel);
+        
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
-        // TODO add your handling code here:
-        CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new CreateAccountJPanel(rightJPanel));
-        layout.next(rightJPanel);
-    }//GEN-LAST:event_btnAddAccountActionPerformed
+    private void btnDeleteAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAccountActionPerformed
+        // TODO add your handling code here:     
+        int row = accountTable.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Account acc = (Account)accountTable.getValueAt(row, 0);
+        admin.getAccountDir().deleteAccount(acc);
+        populateTable();
+        
+        JOptionPane.showMessageDialog(null, "Customer Account Deleted!");
+    }//GEN-LAST:event_btnDeleteAccountActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accountTable;
-    private javax.swing.JButton btnAddAccount;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteAccount;
     private javax.swing.JLabel jLabel17;

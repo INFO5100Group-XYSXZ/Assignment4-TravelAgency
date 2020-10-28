@@ -106,7 +106,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             flightScheduleTable.getColumnModel().getColumn(8).setResizable(false);
             flightScheduleTable.getColumnModel().getColumn(8).setPreferredWidth(70);
             flightScheduleTable.getColumnModel().getColumn(9).setResizable(false);
-            flightScheduleTable.getColumnModel().getColumn(9).setPreferredWidth(50);
+            flightScheduleTable.getColumnModel().getColumn(9).setPreferredWidth(70);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -143,7 +143,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void populateTable() {
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel)flightScheduleTable.getModel();
         model.setRowCount(0);
         DecimalFormat df = new DecimalFormat("#.00"); 
@@ -157,7 +157,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             row[4] = fs.getTo();
             row[5] = fs.getDepartureDate();
             row[6] = fs.getDepartureTime();
-            row[7] = fs.getArrivalTime();
+            row[7] = fs.getArrivalDate() + " " +fs.getArrivalTime();
             row[8] = fs.getSeatList().getSeatList().size();
             row[9] = df.format(fs.getPrice());
             

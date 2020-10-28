@@ -120,7 +120,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void btnViewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrderActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new ViewOrderJPanel(rightJPanel));
+        rightJPanel.add(new ViewOrderJPanel(rightJPanel, account));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnViewOrderActionPerformed
 

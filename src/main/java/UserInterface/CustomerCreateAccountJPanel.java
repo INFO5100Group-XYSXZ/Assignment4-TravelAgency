@@ -8,6 +8,9 @@ package UserInterface;
 import Business.User.Account;
 import Business.User.Admin;
 import java.awt.CardLayout;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -27,6 +30,7 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
         this.rightJPanel = rightJPanel;
         this.admin = admin;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,6 +126,12 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
         Account account = admin.getAccountDir().addAccount();
         account.setUserName(userName);
         account.setPassWord(pw);
+        
+        Date time = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        String strDate = dateFormat.format(time);
+        account.setAccountCreatDate(strDate);
+        
         JOptionPane.showMessageDialog(null,"Account created successfully!");
         
         txtUser.setText("");

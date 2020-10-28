@@ -8,6 +8,7 @@ package UserInterface;
 import Business.Flight.Airliner;
 import Business.Flight.AirlinerDirectory;
 import Business.Flight.FlightScheduleCatalog;
+import Business.User.Admin;
 import UserInterface.Admin.Account.AccountMgrJPanel;
 import UserInterface.Admin.Airliner.AirlinerMgrJPanel;
 import UserInterface.Admin.Flight.FlightScheduleMgrJPanel;
@@ -23,12 +24,14 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel rightJPanel;
     private AirlinerDirectory airlinerDir;
     private Airliner airliner;
+    private Admin admin;
     /**
      * Creates new form AdminWorkAreaJPanel
      */
-    public AdminWorkAreaJPanel(JPanel rightJPanel, AirlinerDirectory ad) {
+    public AdminWorkAreaJPanel(JPanel rightJPanel, AirlinerDirectory ad, Admin admin) {
         this.rightJPanel = rightJPanel;
         this.airlinerDir = ad;
+        this.admin = admin;
         initComponents();
     }
 
@@ -116,7 +119,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private void btnAccountMgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountMgrActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new AccountMgrJPanel(rightJPanel));
+        rightJPanel.add(new AccountMgrJPanel(rightJPanel, admin));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnAccountMgrActionPerformed
 
@@ -139,7 +142,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private void btnOrderMgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderMgrActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new OrderMgrJPanel(rightJPanel));
+        rightJPanel.add(new OrderMgrJPanel(rightJPanel, admin));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnOrderMgrActionPerformed
 
