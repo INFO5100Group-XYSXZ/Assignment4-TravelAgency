@@ -32,22 +32,25 @@ public class OrderMgrJPanel extends javax.swing.JPanel {
     }
     
     public void populateTable() {
+        
         DefaultTableModel model = (DefaultTableModel)orderTable.getModel();
+        model.setRowCount(0);
         for (Account account : admin.getAccountDir().getAccountDir()) {
             for (Order order : account.getOrderList().getOrderList()) {
-            Object row[] = new Object[12];
+            Object row[] = new Object[13];
             row[0] = order;
-            row[1] = order.getPassenger().getFirstName();
-            row[2] = order.getPassenger().getLastName();
-            row[3] = order.getPassenger().getId();
-            row[4] = order.getFlight().getAirliner().getAirlinerName();
-            row[5] = order.getFlight().getFrom();           
-            row[6] = order.getFlight().getTo();
-            row[7] = order.getFlight().getDepartureDate();
-            row[8] = order.getFlight().getDepartureTime();
-            row[9] = order.getPassenger().getSeat().getSeat();
-            row[10] = order.getFlight().getPrice();
-            row[11] = order.getOrderDate();        
+            row[1] = order.getAccount().getUserName();
+            row[2] = order.getPassenger().getFirstName();
+            row[3] = order.getPassenger().getLastName();
+            row[4] = order.getPassenger().getId();
+            row[5] = order.getFlight().getAirliner().getAirlinerName();
+            row[6] = order.getFlight().getFrom();           
+            row[7] = order.getFlight().getTo();
+            row[8] = order.getFlight().getDepartureDate();
+            row[9] = order.getFlight().getDepartureTime();
+            row[10] = order.getPassenger().getSeat().getSeat();
+            row[11] = order.getFlight().getPrice();
+            row[12] = order.getOrderDate();        
                     
             model.addRow(row);
             }
@@ -64,7 +67,6 @@ public class OrderMgrJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         btnBack = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         orderTable = new javax.swing.JTable();
         btnViewDetail = new javax.swing.JButton();
@@ -77,23 +79,16 @@ public class OrderMgrJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
         orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Order No.", "First Name", "Last Name", "ID Number", "Airliner", "From", "To", "Date", "Departure", "Seat", "Price", "Order Date"
+                "Order No.", "User Name", "First Name", "Last Name", "ID Number", "Airliner", "From", "To", "Date", "Departure", "Seat", "Price", "Order Date"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -111,21 +106,23 @@ public class OrderMgrJPanel extends javax.swing.JPanel {
             orderTable.getColumnModel().getColumn(3).setResizable(false);
             orderTable.getColumnModel().getColumn(3).setPreferredWidth(70);
             orderTable.getColumnModel().getColumn(4).setResizable(false);
-            orderTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+            orderTable.getColumnModel().getColumn(4).setPreferredWidth(70);
             orderTable.getColumnModel().getColumn(5).setResizable(false);
-            orderTable.getColumnModel().getColumn(5).setPreferredWidth(70);
+            orderTable.getColumnModel().getColumn(5).setPreferredWidth(50);
             orderTable.getColumnModel().getColumn(6).setResizable(false);
             orderTable.getColumnModel().getColumn(6).setPreferredWidth(70);
             orderTable.getColumnModel().getColumn(7).setResizable(false);
-            orderTable.getColumnModel().getColumn(7).setPreferredWidth(100);
+            orderTable.getColumnModel().getColumn(7).setPreferredWidth(70);
             orderTable.getColumnModel().getColumn(8).setResizable(false);
-            orderTable.getColumnModel().getColumn(8).setPreferredWidth(70);
+            orderTable.getColumnModel().getColumn(8).setPreferredWidth(100);
             orderTable.getColumnModel().getColumn(9).setResizable(false);
-            orderTable.getColumnModel().getColumn(9).setPreferredWidth(50);
+            orderTable.getColumnModel().getColumn(9).setPreferredWidth(70);
             orderTable.getColumnModel().getColumn(10).setResizable(false);
-            orderTable.getColumnModel().getColumn(10).setPreferredWidth(70);
+            orderTable.getColumnModel().getColumn(10).setPreferredWidth(50);
             orderTable.getColumnModel().getColumn(11).setResizable(false);
-            orderTable.getColumnModel().getColumn(11).setPreferredWidth(130);
+            orderTable.getColumnModel().getColumn(11).setPreferredWidth(70);
+            orderTable.getColumnModel().getColumn(12).setResizable(false);
+            orderTable.getColumnModel().getColumn(12).setPreferredWidth(130);
         }
 
         btnViewDetail.setText("View Detail");
@@ -142,36 +139,33 @@ public class OrderMgrJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(342, 342, 342))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBack)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(682, 682, 682)
-                        .addComponent(btnViewDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBack)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(457, 457, 457)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(500, 500, 500)
+                        .addComponent(btnViewDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(20, 20, 20)
                 .addComponent(btnBack)
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete)
-                    .addComponent(btnViewDetail))
-                .addGap(22, 22, 22))
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnViewDetail)
+                .addGap(10, 10, 10))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -196,29 +190,9 @@ public class OrderMgrJPanel extends javax.swing.JPanel {
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnViewDetailActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        int row = orderTable.getSelectedRow();
-        if(row<0){
-            JOptionPane.showMessageDialog(null, "Please select a row!", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        Order selectOrder = (Order)orderTable.getValueAt(row, 0);
-        for (Account account : admin.getAccountDir().getAccountDir()) {
-            for (Order order : account.getOrderList().getOrderList()) {
-                if (order.equals(selectOrder)) {
-                    account.getOrderList().deleteOrder(order);
-                    populateTable();
-                    return;
-                }
-            }
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnViewDetail;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

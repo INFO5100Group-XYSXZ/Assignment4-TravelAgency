@@ -141,8 +141,9 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnOrderMgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderMgrActionPerformed
         // TODO add your handling code here:
+        OrderMgrJPanel omjp = new OrderMgrJPanel(rightJPanel, admin);       
+        rightJPanel.add("OrderMgrJPanel", omjp);
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new OrderMgrJPanel(rightJPanel, admin));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnOrderMgrActionPerformed
 

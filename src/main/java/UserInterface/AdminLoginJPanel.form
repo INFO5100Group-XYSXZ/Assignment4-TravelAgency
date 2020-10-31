@@ -24,8 +24,8 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="txtPword" pref="130" max="32767" attributes="0"/>
-                  <Component id="txtPword1" max="32767" attributes="0"/>
+                  <Component id="txtUser" pref="130" max="32767" attributes="0"/>
+                  <Component id="txtPword" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
           </Group>
@@ -51,12 +51,12 @@
               <Component id="txtTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtPword" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtUser" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtPword1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPword" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
         <Property name="text" type="java.lang.String" value="Admin Login Screen"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtPword">
+    <Component class="javax.swing.JTextField" name="txtUser">
     </Component>
     <Component class="javax.swing.JButton" name="btnSubmit">
       <Properties>
@@ -86,7 +86,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtPword1">
+    <Component class="javax.swing.JTextField" name="txtPword">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

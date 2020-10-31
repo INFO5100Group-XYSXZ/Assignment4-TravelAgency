@@ -74,11 +74,11 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Flight No.", "Airliner", "Airplane", "From", "To", "Date", "Departure", "Arrival", "Remaining", "Price"
+                "Flight No.", "Airliner", "Airplane", "From", "To", "Date", "Departure", "Arrival", "Remaining", "Price", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -94,9 +94,9 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             flightScheduleTable.getColumnModel().getColumn(2).setResizable(false);
             flightScheduleTable.getColumnModel().getColumn(2).setPreferredWidth(100);
             flightScheduleTable.getColumnModel().getColumn(3).setResizable(false);
-            flightScheduleTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+            flightScheduleTable.getColumnModel().getColumn(3).setPreferredWidth(70);
             flightScheduleTable.getColumnModel().getColumn(4).setResizable(false);
-            flightScheduleTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+            flightScheduleTable.getColumnModel().getColumn(4).setPreferredWidth(70);
             flightScheduleTable.getColumnModel().getColumn(5).setResizable(false);
             flightScheduleTable.getColumnModel().getColumn(5).setPreferredWidth(100);
             flightScheduleTable.getColumnModel().getColumn(6).setResizable(false);
@@ -107,38 +107,43 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             flightScheduleTable.getColumnModel().getColumn(8).setPreferredWidth(70);
             flightScheduleTable.getColumnModel().getColumn(9).setResizable(false);
             flightScheduleTable.getColumnModel().getColumn(9).setPreferredWidth(70);
+            flightScheduleTable.getColumnModel().getColumn(10).setResizable(false);
+            flightScheduleTable.getColumnModel().getColumn(10).setPreferredWidth(70);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(410, 410, 410)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(392, 392, 392))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnBookFlight)
+                        .addGap(425, 425, 425))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 852, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(363, 363, 363)
-                        .addComponent(jLabel17))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(388, 388, 388)
-                        .addComponent(btnBookFlight)))
-                .addContainerGap())
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(btnBack)
-                .addGap(14, 14, 14)
+                .addGap(5, 5, 5)
                 .addComponent(jLabel17)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBookFlight)
                 .addContainerGap())
         );
@@ -149,7 +154,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         DecimalFormat df = new DecimalFormat("#.00"); 
         for (Airliner airliner : airlinerDir.getAirlinerDirectory()) {
             for(FlightSchedule fs : airliner.getFlightScheduleCatalog().getFlightScheduleCatalog()){
-            Object row[] = new Object[10];
+            Object row[] = new Object[11];
             row[0] = fs;
             row[1] = fs.getAirliner();
             row[2] = fs.getAirplane();
@@ -160,7 +165,11 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             row[7] = fs.getArrivalDate() + " " +fs.getArrivalTime();
             row[8] = fs.getSeatList().getSeatList().size();
             row[9] = df.format(fs.getPrice());
+            row[10] = fs.getStatus();
             
+            if (fs.getStatus() == "Full") {
+                        row[8] = "0";
+            }
             model.addRow(row);
             }
         }
@@ -179,7 +188,16 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             return;
         }
         FlightSchedule selectedFlight = (FlightSchedule)flightScheduleTable.getValueAt(row, 0);
-        OrderConfirmJPanel ocjp = new OrderConfirmJPanel(rightJPanel,selectedFlight,account);
+        if (selectedFlight.getStatus() == "Cancel") {
+            JOptionPane.showMessageDialog(null, "This flight is cancelled!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (selectedFlight.getStatus() == "Full") {
+            JOptionPane.showMessageDialog(null, "This flight is full!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        OrderConfirmJPanel ocjp = new OrderConfirmJPanel(rightJPanel, selectedFlight, account);
         rightJPanel.add("OrderConfirmJPanel", ocjp);
         CardLayout layout = (CardLayout) rightJPanel.getLayout();
         layout.next(rightJPanel);

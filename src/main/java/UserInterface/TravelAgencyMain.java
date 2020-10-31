@@ -26,7 +26,7 @@ public class TravelAgencyMain extends javax.swing.JFrame {
     public TravelAgencyMain() {
         
         initComponents();
-        setSize(800, 500);
+        setSize(1200, 500);
         setLocation(200, 100);
         admin = new Admin();
         airlinerDirectory = new AirlinerDirectory();

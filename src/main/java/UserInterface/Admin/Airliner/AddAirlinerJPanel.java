@@ -49,6 +49,12 @@ public class AddAirlinerJPanel extends javax.swing.JPanel {
             inputFieldValid = false;
         }
         
+        for (int i = 0; i < airlinerDir.getAirlinerDirectory().size(); i++) {
+            if (txtAirliner.getText().equals(airlinerDir.getAirlinerDirectory().get(i).getAirlinerName())) {
+                inputFieldValid = false;
+                break;
+            }
+        }
         return inputFieldValid;
     }
     

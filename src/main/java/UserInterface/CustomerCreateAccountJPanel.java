@@ -8,9 +8,13 @@ package UserInterface;
 import Business.User.Account;
 import Business.User.Admin;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -45,9 +49,9 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
         txtUser = new javax.swing.JTextField();
         txtPword = new javax.swing.JTextField();
         txtRePword = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblUserName = new javax.swing.JLabel();
+        lblPass = new javax.swing.JLabel();
+        lblRePass = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
 
         btnCreate.setText("Create");
@@ -57,11 +61,13 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Username:");
+        txtUser.setToolTipText("");
 
-        jLabel2.setText("Password:");
+        lblUserName.setText("Username:");
 
-        jLabel3.setText("Re-enter password :");
+        lblPass.setText("Password:");
+
+        lblRePass.setText("Re-enter password :");
 
         btnBack.setText("<< BACK");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -85,9 +91,9 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
                             .addComponent(btnCreate)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(lblRePass)
+                                    .addComponent(lblPass, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -103,15 +109,15 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(lblUserName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(lblPass))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(lblRePass))
                 .addGap(39, 39, 39)
                 .addComponent(btnCreate)
                 .addGap(28, 28, 28))
@@ -119,26 +125,90 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        String userName = txtUser.getText();
-        String pw   = txtPword.getText();
-        String rpw = txtRePword.getText();
         
-        Account account = admin.getAccountDir().addAccount();
-        account.setUserName(userName);
-        account.setPassWord(pw);
+        boolean validUserName = isValidUserName();
+        boolean validPassword = isValidPassword();
         
-        Date time = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
-        String strDate = dateFormat.format(time);
-        account.setAccountCreatDate(strDate);
-        
-        JOptionPane.showMessageDialog(null,"Account created successfully!");
-        
-        txtUser.setText("");
-        txtPword.setText("");
-        txtRePword.setText("");
+        if (!validUserName) { 
+            JOptionPane.showMessageDialog(null, "UserName should be in format of xx@xx.xx");
+            txtUser.setBorder(BorderFactory.createLineBorder(Color.red));
+            lblUserName.setForeground(Color.red);
+        } else if (!isUniqueUsername()) {
+            JOptionPane.showMessageDialog(null, "UserName should be unique");
+            txtUser.setBorder(BorderFactory.createLineBorder(Color.red));
+            lblUserName.setForeground(Color.red);
+        } else if (!validPassword) {
+            txtUser.setBorder(null);
+            lblUserName.setForeground(Color.BLACK);
+            JOptionPane.showMessageDialog(null, "Password should be at least 5 digits, with at least one letter and one digit");
+            txtPword.setBorder(BorderFactory.createLineBorder(Color.red));
+            lblPass.setForeground(Color.red);
+        } else if (!txtRePword.getText().equals(txtPword.getText())) {  
+            JOptionPane.showMessageDialog(null, "Passwords do not match.");
+            txtPword.setBorder(BorderFactory.createLineBorder(Color.red));
+            txtRePword.setBorder(BorderFactory.createLineBorder(Color.red));
+            lblPass.setForeground(Color.red);
+            lblRePass.setForeground(Color.red);
+        } else {
+            txtUser.setBorder(null);
+            txtPword.setBorder(null);
+            txtRePword.setBorder(null);
+            lblUserName.setForeground(Color.BLACK);
+            lblPass.setForeground(Color.BLACK);
+            lblRePass.setForeground(Color.BLACK);
+            
+            String userName = txtUser.getText();
+            String pw   = txtPword.getText();
+            String rpw = txtRePword.getText();
+
+            Account account = admin.getAccountDir().addAccount();
+            account.setUserName(userName);
+            account.setPassWord(pw);
+
+            Date time = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+            String strDate = dateFormat.format(time);
+            account.setAccountCreatDate(strDate);
+
+            JOptionPane.showMessageDialog(null,"Account created successfully!");
+
+            txtUser.setText("");
+            txtPword.setText("");
+            txtRePword.setText("");
+        }     
     }//GEN-LAST:event_btnCreateActionPerformed
 
+    private boolean isValidUserName() {
+        String regex = "^[aA-zZ0-9]+@[aA-zZ0-9]+.[aA-zZ]+$";
+        Pattern p = Pattern.compile(regex);
+        if (txtUser.getText() == null) {
+            return false;
+        }
+        Matcher m = p.matcher(txtUser.getText());
+        return m.matches();
+    }
+    
+    private boolean isValidPassword() {
+        String regex = "^(?=.*[0-9])" + "(?=.*[aA-zZ])" + ".{5,}$";
+        Pattern p = Pattern.compile(regex);
+        if (txtPword.getText() == null) {
+            return false;
+        }
+        Matcher m = p.matcher(txtPword.getText());
+        return m.matches();
+    }
+    
+    private boolean isUniqueUsername() {
+        boolean unique = true;
+        for (int i = 0; i < admin.getAccountDir().getAccountDir().size(); i++) {
+            if (txtUser.getText().equals(admin.getAccountDir().getAccountDir().get(i).getUserName())) {
+                unique = false;
+                break;
+            }
+        }
+        return unique;
+    }
+    
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
         rightJPanel.remove(this);
@@ -149,9 +219,9 @@ public class CustomerCreateAccountJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblPass;
+    private javax.swing.JLabel lblRePass;
+    private javax.swing.JLabel lblUserName;
     private javax.swing.JTextField txtPword;
     private javax.swing.JTextField txtRePword;
     private javax.swing.JTextField txtUser;

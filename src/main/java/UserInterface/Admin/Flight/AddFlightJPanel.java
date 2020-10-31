@@ -90,11 +90,28 @@ public class AddFlightJPanel extends javax.swing.JPanel {
         boolean input = m.matches();
         return input;
     }
+    public boolean flightNumUnique(){
+        boolean unique = true;
+        for(int i = 0; i < airlinerDir.getAirlinerDirectory().size(); i++){
+            for (int j = 0; j < airlinerDir.getAirlinerDirectory().get(i)
+                    .getFlightScheduleCatalog().getFlightScheduleCatalog().size(); j++) {
+                if (txtFlightNum.getText().equals(airlinerDir.getAirlinerDirectory().get(i)
+                    .getFlightScheduleCatalog().getFlightScheduleCatalog().get(j).getFlightNumber())) {
+                    unique = false;
+                    break;
+                }
+            }
+        }
+        return unique;
+    }
     
     public boolean inputfieldValid(){
         boolean inputfieldValid = true;
         
         if (txtFlightNum.getText().equals("") || !inputNumberCorrect(txtFlightNum.getText())) {
+            inputfieldValid = false;
+        }
+        if (!flightNumUnique()) {
             inputfieldValid = false;
         }
         if (txtFrom.getText().equals("") || !inputStringCorrect(txtFrom.getText())) {
@@ -104,6 +121,9 @@ public class AddFlightJPanel extends javax.swing.JPanel {
             inputfieldValid = false;
         }
         if (txtPrice.getText().equals("") || !inputPriceCorrect(txtPrice.getText())) {
+            inputfieldValid = false;
+        }
+        if (txtFrom.getText().equals(txtTo.getText())) {
             inputfieldValid = false;
         }
         

@@ -49,6 +49,7 @@ public class UpdateFlightJPanel extends javax.swing.JPanel {
         arrivalMinComboBox.setSelectedItem(fs.getArrivalMin());
 
         txtCapacity.setText(String.valueOf(fs.getAirplane().getCapacity()));
+        statusComboBox.setSelectedItem(fs.getStatus());
         txtPrice.setText(String.valueOf(fs.getPrice()));
         
         comboBoxInitialize();

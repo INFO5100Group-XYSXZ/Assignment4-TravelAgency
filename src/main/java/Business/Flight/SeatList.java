@@ -58,8 +58,8 @@ public class SeatList {
             seatList.add(seat6);
         }
     }
-    
-    public int getIndex(String seat){
+
+    public int getIndex(String seat) {
         for (int i = 0; i < seatList.size() ; i++) {
             if (seat.equals(seatList.get(i).getSeat())) {
                 return i;

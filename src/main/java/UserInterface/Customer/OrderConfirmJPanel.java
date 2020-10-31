@@ -12,6 +12,7 @@ import Business.Order.Order;
 import Business.User.Account;
 import Business.User.Passenger;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -387,8 +388,13 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout)rightJPanel.getLayout();
         rightJPanel.remove(this);
+        Component [] componentArray = rightJPanel.getComponents();
+        Component c = componentArray[componentArray.length-1];
+        BookFlightJPanel bfjp = (BookFlightJPanel) c;
+        bfjp.populateTable();;
+        
+        CardLayout layout = (CardLayout)rightJPanel.getLayout();
         layout.previous(rightJPanel);
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -428,6 +434,7 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
             seatComboBox.setEnabled(false);
             
             int i = selectedFlight.getSeatList().getIndex(seat.getSeat());
+            //int index = selectedFlight.getSeatList().getSeatList().indexOf(seat);
             selectedFlight.getSeatList().getSeatList().remove(i);
         }
     }//GEN-LAST:event_btnConfirmActionPerformed

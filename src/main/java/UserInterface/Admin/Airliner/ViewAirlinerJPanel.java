@@ -52,7 +52,11 @@ public class ViewAirlinerJPanel extends javax.swing.JPanel {
             row[9] = fs.getSeatList().getSeatList().size();
             row[10] = df.format(fs.getPrice());
             row[11] = fs.getStatus();
-           
+            
+            if (fs.getStatus() == "Full") {
+                        row[9] = "0";
+            }
+            
             dtm.addRow(row);
         }
     }

@@ -32,6 +32,7 @@ public class ViewOrderJPanel extends javax.swing.JPanel {
     
     public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+        model.setRowCount(0);
         for (Order order : account.getOrderList().getOrderList()) {
             Object row[] = new Object[12];
             row[0] = order;
